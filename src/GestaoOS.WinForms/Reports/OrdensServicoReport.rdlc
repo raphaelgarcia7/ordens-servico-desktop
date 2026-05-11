@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="ObjectDataSource">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString />
+      </ConnectionProperties>
+      <rd:DataSourceID>f2d9f580-d7a9-49cb-8b44-7d03160185d0</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="OrdemServicoReportRow">
+      <Fields>
+        <Field Name="OrdemServicoId"><DataField>OrdemServicoId</DataField><rd:TypeName>System.Int32</rd:TypeName></Field>
+        <Field Name="ClienteNome"><DataField>ClienteNome</DataField><rd:TypeName>System.String</rd:TypeName></Field>
+        <Field Name="DataAbertura"><DataField>DataAbertura</DataField><rd:TypeName>System.DateTime</rd:TypeName></Field>
+        <Field Name="Status"><DataField>Status</DataField><rd:TypeName>System.String</rd:TypeName></Field>
+        <Field Name="ValorTotal"><DataField>ValorTotal</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+        <Field Name="TotalImpostos"><DataField>TotalImpostos</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+        <Field Name="TotalCliente"><DataField>TotalCliente</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+        <Field Name="QuantidadeCliente"><DataField>QuantidadeCliente</DataField><rd:TypeName>System.Int32</rd:TypeName></Field>
+        <Field Name="TotalGeral"><DataField>TotalGeral</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+        <Field Name="TotalGeralImpostos"><DataField>TotalGeralImpostos</DataField><rd:TypeName>System.Decimal</rd:TypeName></Field>
+        <Field Name="QuantidadeTotal"><DataField>QuantidadeTotal</DataField><rd:TypeName>System.Int32</rd:TypeName></Field>
+      </Fields>
+      <Query>
+        <DataSourceName>ObjectDataSource</DataSourceName>
+        <CommandText />
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Body>
+    <ReportItems>
+      <Textbox Name="Titulo">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs><Paragraph><TextRuns><TextRun><Value>Relatório Gerencial de Ordens de Serviço</Value><Style><FontSize>16pt</FontSize><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs>
+        <Top>0.1in</Top><Left>0.1in</Left><Height>0.3in</Height><Width>7.4in</Width><Style />
+      </Textbox>
+      <Tablix Name="TabelaOrdens">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn><Width>1in</Width></TablixColumn>
+            <TablixColumn><Width>2.2in</Width></TablixColumn>
+            <TablixColumn><Width>1.2in</Width></TablixColumn>
+            <TablixColumn><Width>1.2in</Width></TablixColumn>
+            <TablixColumn><Width>1.2in</Width></TablixColumn>
+            <TablixColumn><Width>1.2in</Width></TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow><Height>0.24in</Height><TablixCells>
+              <TablixCell><CellContents><Textbox Name="HId"><Paragraphs><Paragraph><TextRuns><TextRun><Value>OS</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="HCliente"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Cliente</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="HData"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Data</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="HStatus"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Status</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="HValor"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Valor</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="HImp"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Impostos</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+            </TablixCells></TablixRow>
+            <TablixRow><Height>0.22in</Height><TablixCells>
+              <TablixCell><CellContents><Textbox Name="DId"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!OrdemServicoId.Value</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="DCliente"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!ClienteNome.Value</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="DData"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Format(Fields!DataAbertura.Value, "dd/MM/yyyy")</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="DStatus"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!Status.Value</Value><Style /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="DValor"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!ValorTotal.Value</Value><Style><Format>C2</Format></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="DImp"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Fields!TotalImpostos.Value</Value><Style><Format>C2</Format></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+            </TablixCells></TablixRow>
+            <TablixRow><Height>0.25in</Height><TablixCells>
+              <TablixCell><CellContents><Textbox Name="F1"><Paragraphs><Paragraph><TextRuns><TextRun><Value>Total geral</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="FQtd"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=CountRows()</Value><Style><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="F2"><Paragraphs><Paragraph><TextRuns><TextRun><Value /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="F3"><Paragraphs><Paragraph><TextRuns><TextRun><Value /></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="FTotal"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Sum(Fields!ValorTotal.Value)</Value><Style><Format>C2</Format><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+              <TablixCell><CellContents><Textbox Name="FImp"><Paragraphs><Paragraph><TextRuns><TextRun><Value>=Sum(Fields!TotalImpostos.Value)</Value><Style><Format>C2</Format><FontWeight>Bold</FontWeight></Style></TextRun></TextRuns><Style /></Paragraph></Paragraphs><Style /></Textbox></CellContents></TablixCell>
+            </TablixCells></TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy><TablixMembers><TablixMember /><TablixMember /><TablixMember /><TablixMember /><TablixMember /><TablixMember /></TablixMembers></TablixColumnHierarchy>
+        <TablixRowHierarchy><TablixMembers><TablixMember><KeepWithGroup>After</KeepWithGroup></TablixMember><TablixMember><Group Name="Detalhes" /></TablixMember><TablixMember><KeepWithGroup>Before</KeepWithGroup></TablixMember></TablixMembers></TablixRowHierarchy>
+        <DataSetName>OrdemServicoReportRow</DataSetName>
+        <Top>0.55in</Top><Left>0.1in</Left><Height>0.71in</Height><Width>8in</Width><Style />
+      </Tablix>
+    </ReportItems>
+    <Height>1.5in</Height>
+  </Body>
+  <Width>8.2in</Width>
+  <Page>
+    <PageHeight>11in</PageHeight><PageWidth>8.5in</PageWidth>
+    <LeftMargin>0.25in</LeftMargin><RightMargin>0.25in</RightMargin><TopMargin>0.25in</TopMargin><BottomMargin>0.25in</BottomMargin>
+  </Page>
+</Report>
