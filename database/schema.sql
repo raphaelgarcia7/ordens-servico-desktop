@@ -90,11 +90,11 @@ CREATE INDEX ix_servicos_ativos ON servicos(id) WHERE ativo = TRUE;
 
 INSERT INTO clientes (nome, documento, tipo, email, telefone, ativo)
 VALUES
-('Cliente Pessoa Física', '12345678901', 1, 'pf@exemplo.com', '(11) 99999-0000', TRUE),
+('Cliente Pessoa Fisica', '12345678901', 1, 'pf@exemplo.com', '(11) 99999-0000', TRUE),
 ('Empresa Exemplo LTDA', '12345678000190', 2, 'contato@empresa.com', '(11) 3333-0000', TRUE);
 
 INSERT INTO servicos (nome, valor_base, percentual_imposto, ativo)
 VALUES
-('Diagnóstico técnico', 150.00, 5.00, TRUE),
-('Manutenção preventiva', 350.00, 8.50, TRUE),
-('Instalação assistida', 500.00, 12.00, TRUE);
+('Diagnostico tecnico', 150.00, 5.00, TRUE),
+('Manutencao preventiva', 350.00, 8.50, TRUE),
+('Instalacao assistida', 500.00, 12.00, TRUE);

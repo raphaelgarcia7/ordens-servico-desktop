@@ -17,6 +17,7 @@ O projeto foi estruturado como uma base evolutiva para produção, com separaç�
 - [Tratamento de erros e logs](#tratamento-de-erros-e-logs)
 - [Como executar](#como-executar)
 - [Estrutura do projeto](#estrutura-do-projeto)
+- [Checklist de aderência](#checklist-de-aderência)
 - [Decisões técnicas](#decisões-técnicas)
 
 ## Stack
@@ -312,6 +313,28 @@ src/GestaoOS.WinForms
 ├── Properties
 └── Reports
 ```
+
+## Checklist de aderência
+
+| Requisito | Status | Implementação |
+| --- | --- | --- |
+| Windows Forms | Atendido | Projeto `GestaoOS.WinForms` |
+| .NET Framework 4.6 | Atendido | Todos os projetos miram `net46` |
+| PostgreSQL | Atendido | Script em `database/schema.sql` |
+| Npgsql sem ORM | Atendido | Repositórios usam `NpgsqlConnection` e `NpgsqlCommand` |
+| ReportViewer | Atendido | `RelatorioOrdensServicoForm` e RDLC em `Reports` |
+| Arquitetura organizada | Atendido | Camadas `Domain`, `Application`, `Infrastructure`, `WinForms` |
+| Transação completa de OS | Atendido | `OrdemServicoService.Save` com `IUnitOfWork` |
+| Rollback em falha | Atendido | `PostgresUnitOfWork.Rollback` no bloco `catch` |
+| Concorrência otimista | Atendido | Campo `versao` no `UPDATE ... WHERE id = @id AND versao = @versao` |
+| Auditoria JSON | Atendido | Tabela `auditoria` e `AuditoriaRepository` |
+| Histórico de status | Atendido | Tabela `historico_status` |
+| Paginação | Atendido | Consultas com `LIMIT/OFFSET` |
+| Itens sob demanda | Atendido | Itens carregados apenas em `GetById(..., includeItems: true)` |
+| Constraints e índices | Atendido | PK, FK, CHECK, UNIQUE e índices no script SQL |
+| Erros amigáveis | Atendido | `UiErrorHandler` |
+| Logs técnicos | Atendido | `FileLogger` em arquivo |
+| README com execução e decisões | Atendido | Este documento |
 
 ## Decisões técnicas
 

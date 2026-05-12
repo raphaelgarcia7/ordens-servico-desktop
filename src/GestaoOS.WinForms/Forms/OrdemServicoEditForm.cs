@@ -21,6 +21,8 @@ namespace GestaoOS.WinForms.Forms
         private readonly DataGridView _gridItens = new DataGridView();
         private readonly ComboBox _servico = new ComboBox();
         private readonly NumericUpDown _quantidade = new NumericUpDown();
+        private Button _adicionar;
+        private Button _remover;
 
         public OrdemServicoEditForm(AppServices services, OrdemServico ordem)
         {
@@ -50,14 +52,20 @@ namespace GestaoOS.WinForms.Forms
             _servico.Left = 12; _servico.Top = 186; _servico.Width = 360; _servico.DropDownStyle = ComboBoxStyle.DropDownList; Controls.Add(_servico);
             Controls.Add(new Label { Left = 390, Top = 166, Width = 120, Text = "Quantidade" });
             _quantidade.Left = 390; _quantidade.Top = 186; _quantidade.Width = 120; _quantidade.Minimum = 1; _quantidade.Maximum = 9999; Controls.Add(_quantidade);
-            var adicionar = new Button { Left = 530, Top = 184, Width = 90, Text = "Adicionar" };
-            var remover = new Button { Left = 632, Top = 184, Width = 90, Text = "Remover" };
-            adicionar.Click += delegate { AddItem(); };
-            remover.Click += delegate { RemoveItem(); };
-            Controls.Add(adicionar); Controls.Add(remover);
+            _adicionar = new Button { Left = 530, Top = 184, Width = 90, Text = "Adicionar" };
+            _remover = new Button { Left = 632, Top = 184, Width = 90, Text = "Remover" };
+            _adicionar.Click += delegate { AddItem(); };
+            _remover.Click += delegate { RemoveItem(); };
+            Controls.Add(_adicionar); Controls.Add(_remover);
 
             _gridItens.Left = 12; _gridItens.Top = 226; _gridItens.Width = 920; _gridItens.Height = 330;
-            _gridItens.ReadOnly = true; _gridItens.AutoGenerateColumns = true; _gridItens.SelectionMode = DataGridViewSelectionMode.FullRowSelect; _gridItens.MultiSelect = false; _gridItens.DataSource = _itens;
+            GridFactory.ConfigureReadOnly(_gridItens);
+            _gridItens.Columns.Add(GridFactory.TextColumn("ServicoNome", "Serviço", 330));
+            _gridItens.Columns.Add(GridFactory.TextColumn("Quantidade", "Qtd.", 70, null, DataGridViewContentAlignment.MiddleCenter));
+            _gridItens.Columns.Add(GridFactory.TextColumn("ValorUnitario", "Valor unitário", 130, "C2", DataGridViewContentAlignment.MiddleRight));
+            _gridItens.Columns.Add(GridFactory.TextColumn("PercentualImpostoAplicado", "Imposto (%)", 110, "N2", DataGridViewContentAlignment.MiddleRight));
+            _gridItens.Columns.Add(GridFactory.TextColumn("ValorTotalItem", "Total do item", 130, "C2", DataGridViewContentAlignment.MiddleRight));
+            _gridItens.DataSource = _itens;
             Controls.Add(_gridItens);
 
             var salvar = new Button { Left = 760, Top = 574, Width = 80, Text = "Salvar" };
@@ -84,6 +92,7 @@ namespace GestaoOS.WinForms.Forms
             }
 
             _status.SelectedItem = _ordem.Status;
+            _status.SelectedIndexChanged += delegate { RefreshItemControls(); };
             _observacao.Text = _ordem.Observacao;
             foreach (var item in _ordem.Itens)
             {
@@ -91,6 +100,7 @@ namespace GestaoOS.WinForms.Forms
             }
 
             RefreshTotal();
+            RefreshItemControls();
         }
 
         private void AddItem()
@@ -135,6 +145,16 @@ namespace GestaoOS.WinForms.Forms
         {
             var total = _itens.Sum(item => item.ValorTotalItem);
             _total.Text = total.ToString("C2");
+        }
+
+        private void RefreshItemControls()
+        {
+            var status = (StatusOrdemServico)_status.SelectedItem;
+            var canEditItems = status != StatusOrdemServico.Concluida && status != StatusOrdemServico.Cancelada;
+            _servico.Enabled = canEditItems;
+            _quantidade.Enabled = canEditItems;
+            _adicionar.Enabled = canEditItems;
+            _remover.Enabled = canEditItems;
         }
 
         private void Save()

@@ -34,7 +34,16 @@ namespace GestaoOS.WinForms.Forms
             var editar = new Button { Left = 712, Top = 26, Width = 90, Text = "Editar" };
             var excluir = new Button { Left = 814, Top = 26, Width = 60, Text = "Excluir" };
 
-            _grid = new DataGridView { Left = 12, Top = 65, Width = 862, Height = 440, ReadOnly = true, AutoGenerateColumns = true, SelectionMode = DataGridViewSelectionMode.FullRowSelect, MultiSelect = false };
+            _grid = new DataGridView { Left = 12, Top = 65, Width = 862, Height = 440 };
+            GridFactory.ConfigureReadOnly(_grid);
+            _grid.Columns.Add(GridFactory.TextColumn("Id", "Código", 70));
+            _grid.Columns.Add(GridFactory.TextColumn("Nome", "Nome", 210));
+            _grid.Columns.Add(GridFactory.TextColumn("Documento", "Documento", 130));
+            _grid.Columns.Add(GridFactory.TextColumn("Tipo", "Tipo", 90));
+            _grid.Columns.Add(GridFactory.TextColumn("Email", "E-mail", 170));
+            _grid.Columns.Add(GridFactory.TextColumn("Telefone", "Telefone", 110));
+            _grid.Columns.Add(GridFactory.TextColumn("DataCadastro", "Cadastro", 90, "dd/MM/yyyy"));
+            _grid.Columns.Add(GridFactory.CheckColumn("Ativo", "Ativo", 60));
             _grid.DataSource = _clientes;
 
             Controls.Add(new Label { Left = 12, Top = 10, Width = 120, Text = "Nome" });

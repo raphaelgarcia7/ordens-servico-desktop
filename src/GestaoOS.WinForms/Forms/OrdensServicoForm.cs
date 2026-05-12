@@ -34,7 +34,16 @@ namespace GestaoOS.WinForms.Forms
             var pesquisar = new Button { Left = 174, Top = 26, Width = 90, Text = "Pesquisar" };
             var novo = new Button { Left = 276, Top = 26, Width = 90, Text = "Nova" };
             var editar = new Button { Left = 378, Top = 26, Width = 90, Text = "Abrir" };
-            _grid = new DataGridView { Left = 12, Top = 65, Width = 940, Height = 430, ReadOnly = true, AutoGenerateColumns = true, SelectionMode = DataGridViewSelectionMode.FullRowSelect, MultiSelect = false, DataSource = _ordens };
+            _grid = new DataGridView { Left = 12, Top = 65, Width = 940, Height = 430 };
+            GridFactory.ConfigureReadOnly(_grid);
+            _grid.Columns.Add(GridFactory.TextColumn("Id", "OS", 70));
+            _grid.Columns.Add(GridFactory.TextColumn("ClienteNome", "Cliente", 260));
+            _grid.Columns.Add(GridFactory.TextColumn("DataAbertura", "Abertura", 110, "dd/MM/yyyy"));
+            _grid.Columns.Add(GridFactory.TextColumn("DataConclusao", "Conclusão", 110, "dd/MM/yyyy"));
+            _grid.Columns.Add(GridFactory.TextColumn("Status", "Status", 120));
+            _grid.Columns.Add(GridFactory.TextColumn("ValorTotal", "Total", 110, "C2", DataGridViewContentAlignment.MiddleRight));
+            _grid.Columns.Add(GridFactory.TextColumn("Versao", "Versão", 80, null, DataGridViewContentAlignment.MiddleCenter));
+            _grid.DataSource = _ordens;
 
             Controls.Add(new Label { Left = 12, Top = 10, Width = 120, Text = "Status" });
             Controls.AddRange(new Control[] { _status, pesquisar, novo, editar, _grid });

@@ -28,7 +28,14 @@ namespace GestaoOS.WinForms.Forms
             var pesquisar = new Button { Left = 376, Top = 26, Width = 90, Text = "Pesquisar" };
             var novo = new Button { Left = 478, Top = 26, Width = 90, Text = "Novo" };
             var editar = new Button { Left = 580, Top = 26, Width = 90, Text = "Editar" };
-            _grid = new DataGridView { Left = 12, Top = 65, Width = 720, Height = 390, ReadOnly = true, AutoGenerateColumns = true, SelectionMode = DataGridViewSelectionMode.FullRowSelect, MultiSelect = false, DataSource = _servicos };
+            _grid = new DataGridView { Left = 12, Top = 65, Width = 720, Height = 390 };
+            GridFactory.ConfigureReadOnly(_grid);
+            _grid.Columns.Add(GridFactory.TextColumn("Id", "Código", 70));
+            _grid.Columns.Add(GridFactory.TextColumn("Nome", "Serviço", 300));
+            _grid.Columns.Add(GridFactory.TextColumn("ValorBase", "Valor base", 110, "C2", DataGridViewContentAlignment.MiddleRight));
+            _grid.Columns.Add(GridFactory.TextColumn("PercentualImposto", "Imposto (%)", 110, "N2", DataGridViewContentAlignment.MiddleRight));
+            _grid.Columns.Add(GridFactory.CheckColumn("Ativo", "Ativo", 70));
+            _grid.DataSource = _servicos;
 
             Controls.Add(new Label { Left = 12, Top = 10, Width = 120, Text = "Nome" });
             Controls.AddRange(new Control[] { _nome, _ativo, pesquisar, novo, editar, _grid });
